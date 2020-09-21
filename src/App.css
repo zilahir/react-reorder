@@ -1,7 +1,17 @@
 .App {
   text-align: center;
+}
+
+ul {
+  list-style-type: none;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
+  margin: 0;
+  padding: 0;
+}
+
+ul li {
+  list-style-type: none;
 }
 
 .App-logo {
