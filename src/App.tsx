@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import styled from "styled-components";
 import './App.css';
 import arrayMove from 'array-move';
@@ -31,21 +31,18 @@ interface BoxProps {
 
 const Box = ({
   backgroundColor,
-  index,
 }: BoxProps) => {
 
-  const ref = useRef<HTMLDivElement>(null);
   return (
     <Boxx
-      ref={ref}
       backgroundColor={backgroundColor}
     >
-      { index + 1}
+      { backgroundColor }
     </Boxx>
   )
 }
 
-const SortableItem = SortableElement(({backgroundColor, index}: BoxProps) => {
+const SortableItem = SortableElement(({backgroundColor, index}: any) => {
   return (
     <Box backgroundColor={backgroundColor} index={index} />
   )
