@@ -5,12 +5,12 @@ export interface Position {
   height: number;
 }
 
-// Prevent rapid reverse swapping
 const buffer = 5;
 
 export const findIndex = (
   i: number,
   yOffset: number,
+  xOffset: number,
   positions: Position[]
 ) => {
   let target = i;
@@ -28,6 +28,21 @@ export const findIndex = (
 
     // If moving up
   } else if (yOffset < 0) {
+    const prevItem = positions[i - 1];
+    if (prevItem === undefined) return i;
+
+    const prevBottom = prevItem.top + prevItem.height;
+    const swapOffset = distance(top, prevBottom - prevItem.height / 2) + buffer;
+    if (yOffset < -swapOffset) target = i - 1;
+  } if (xOffset < 0) {
+    const nextItem = positions[i + 1];
+    if (nextItem === undefined) return i;
+
+    const swapOffset =
+      distance(bottom, nextItem.top + nextItem.height / 2) + buffer;
+    if (yOffset > swapOffset) target = i + 1;
+
+  } else if (xOffset > 0) {
     const prevItem = positions[i - 1];
     if (prevItem === undefined) return i;
 

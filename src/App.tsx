@@ -64,14 +64,14 @@ const Box = ({
       animate={isDragging ? onTop : flat}
       backgroundColor={backgroundColor}
       whileHover={{ scale: 1.05 }}
-      dragConstraints={{ top: 0, bottom: 0, left: 0, right: 0 }}
+      dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
       drag
       dragElastic={1}
       initial={false}
       onDragStart={() => setDragging(true)}
       onDragEnd={() => setDragging(false)}
-      onDrag={(e, { point }) => moveItem(index, point.y)}
-      layout
+      onDrag={(e, { point }) => moveItem(index, point.y, point.x)}
+      layout="position"
       transition={dragOriginY}
     >
       { index + 1}
@@ -85,8 +85,8 @@ function App() {
   const positions = useRef<Position[]>([]).current;
   const setPosition = (i: number, offset: Position) => (positions[i] = offset);
 
-  const moveItem = (i: number, dragOffset: number) => {
-    const targetIndex = findIndex(i, dragOffset, positions);
+  const moveItem = (i: number, dragOffsetY: number, dragOffsetX: number) => {
+    const targetIndex = findIndex(i, dragOffsetY, dragOffsetX, positions);
     if (targetIndex !== i) setBoxes(move(colors, i, targetIndex));
   };
 
