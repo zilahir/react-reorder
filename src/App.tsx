@@ -50,13 +50,15 @@ const Box = ({
   useEffect(() => {
     if (ref.current !== null) {
       setPosition(index, {
-        height: ref.current.offsetHeight,
-        top: ref.current.offsetTop
+        width: ref.current.clientWidth,
+				height: ref.current.clientHeight,
+				top: ref.current.offsetHeight,
+				bottom: ref.current.offsetTop,
       });
     }
   });
 
-  const dragOriginY = useMotionValue(0);
+  const dragOrigin = useMotionValue(0);
 
   return (
     <Boxx
@@ -72,7 +74,10 @@ const Box = ({
       onDragEnd={() => setDragging(false)}
       onDrag={(e, { point }) => moveItem(index, point.y, point.x)}
       layout="position"
-      transition={dragOriginY}
+      transition={({ delta }: any) => {
+        dragOrigin.set(dragOrigin.get() + delta.x)
+						
+      }}
     >
       { index + 1}
     </Boxx>
