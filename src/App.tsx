@@ -36,6 +36,7 @@ const Box = ({
   return (
     <Boxx
       backgroundColor={backgroundColor}
+      onClick={() => alert("hello")}
     >
       { backgroundColor }
     </Boxx>
@@ -67,7 +68,7 @@ function App() {
   };
   return (
     <div className="App">
-      <SortableList axis="xy" items={boxes} onSortEnd={({ oldIndex, newIndex}: any) => onSortEnd({oldIndex, newIndex})} />
+      <SortableList distance={100} axis="xy" items={boxes} onSortEnd={({ oldIndex, newIndex}: any) => onSortEnd({oldIndex, newIndex})} />
     </div>
   );
 }
